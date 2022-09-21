@@ -7,4 +7,5 @@ export interface ProductList {
   id: number,
   name: string,
   amount: string,
+  orderId: number | null,
 }

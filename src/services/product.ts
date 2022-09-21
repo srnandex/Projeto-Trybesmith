@@ -1,4 +1,4 @@
-import createModel from '../models/Product';
+import { createModel, listAllModel } from '../models/Product';
 import { ProductAdd } from '../interfaces/product.interface';
 
 export const createService = async (produto: ProductAdd): Promise<ProductAdd> => {
@@ -7,4 +7,12 @@ export const createService = async (produto: ProductAdd): Promise<ProductAdd> =>
   return result;
 };
 
-export default createService;
+export const listAllService = async () => {
+  console.log('serviceeeeeeeeeee');
+    
+  const result = await listAllModel();
+  console.log(result);
+  
+  console.log('serviceeeeeeeeeee depois modeeeelll');
+  return result;
+};

@@ -1,14 +1,15 @@
-import { ResultSetHeader } from 'mysql2/promise';
+import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 import connection from './connection';
-import { ProductList, ProductAdd } from '../interfaces/product.interface';
+import { ProductAdd } from '../interfaces/product.interface';
 
-// type ProductData = {
-//   id: number,
-//   name: string,
-//   amount: string,
-// } & RowDataPacket;
+type ProductData = {
+  id: number,
+  name: string,
+  amount: string,
+  orderId: number | null,
+} & RowDataPacket;
 
-export const createModel = async (produto: ProductAdd):Promise<ProductList> => {
+export const createModel = async (produto: ProductAdd) => {
   const [result] = await connection.execute<ResultSetHeader>(
     'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)',
     [produto.name, produto.amount],
@@ -21,4 +22,13 @@ export const createModel = async (produto: ProductAdd):Promise<ProductList> => {
   };
 };
 
-export default createModel;
+export const listAllModel = async () => {
+  console.log('modeeeellll anteeeesssss');
+  const [result] = await connection.execute<ProductData[]>(
+    'SELECT * FROM Trybesmith.Products',
+  );
+  console.log(result);
+  
+  console.log('modeeeellll deoisssssss');
+  return result;
+};
